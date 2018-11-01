@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JavaScript Project</title>
+    <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/twbs/bootstrap/dist/css/bootstrap.css">
+    <style>
+        body{
+            margin: 0;
+            position: relative;
+        }
+
+        .side{
+            background-color: deeppink;
+            height: 90vh;
+            position: absolute;
+            right:0;
+            top: 15vh;
+            width: 12%;
+            text-align: center;
+        }
+        .bg{
+            background-color: black !important;
+            color: white;
+            border: 1px solid black !important;
+            transition: 1000ms ;
+        }
+    </style>
+</head>
+<body>
+<!--side bar-->
+<div class="side">
+    <h2 class="title"></h2>
+    <a href="#" class="btn btn-success" id="button">Open</a>
+
+    <div class="input-ctn">
+        <h5>Input Title</h5>
+        <input type="text" class="form-control" name="inputTitle" id="inputTitle">
+
+        <h5>Input Color</h5>
+        <input type="text" class="form-control" name="inputColor" id="inputColor">
+        <h5>Background Color</h5>
+
+        <div class="newBg mt-2" >
+            <div id="info" style="cursor: pointer" class="btn btn-info">Info</div>
+            <div id="primary" style="cursor: pointer" class="btn btn-primary">Primary</div>
+            <div id="success" style="cursor: pointer" class="btn btn-success">Success</div>
+            <div id="danger" style="cursor: pointer" class="btn btn-danger">Danger</div>
+            <div id="warning" style="cursor: pointer" class="btn btn-warning">Warning</div>
+        </div>
+
+        <a href="#" class="btn btn-warning mt-4" id="btn">Update</a>
+
+    </div>
+
+</div>
+<!--end of side bar-->
+
+<!--NavBar-->
+<nav class="navbar navbar-light justify-content-between bg-warning">
+    <form class="form-inline">
+        <a class="nav-link active" href="#>" style="color:white;">
+            <strong>LOGO</strong>
+        </a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="color:white;">Update Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" style="color:white;">Change Password</a>
+            </li>
+        </ul>
+        <div class="ml-auto">
+            <div>
+                <a href="#" class="btn btn-danger" style="border-radius: 5px;">Logout</a>
+            </div>
+        </div>
+    </form>
+</nav>
+<!--End of navbar-->
+
+<!--Content-->
+<div class="container m-0" style="position: relative; z-index: -1; width: 500px; height: 400px; top: 40px; left: 100px; border: 1px solid black ">
+    <h6 id="text" style="text-align: center">Please type a text in the input box</h6>
+</div>
+<!--end of content-->
+
+
+
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="vendor/twbs/bootstrap/dist/js/tether.min.js"></script>
+<script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script>
+    var bootstrapColors = [
+        "bg-info",
+        "bg-primary",
+        "bg-success",
+        "bg-danger",
+        "bg-warning",
+    ];
+    // to highlight the button
+    $(".newBg > div").click(function () {
+        $(this).toggleClass("bg");
+        $(this).siblings().removeClass("bg");
+    });
+
+    // To hide the input fields when the tab is hide
+    $("#button").siblings().hide();
+
+    // pang open and close kang window tab
+    $("#button").click(function () {
+
+        console.log('The button is working');
+        // When u click the #button it will add a class and if you click again it will remove the class
+        $(this).toggleClass("open");
+        $(this).siblings().toggle();
+        if ($(this).hasClass("open")){
+            // .animate where the animation happens
+            $(".side").animate({
+                width: "40%"
+            }, 1000, function () {
+                $(".title").text("JavaScript App");
+                $("#button").text("Close");
+            });
+        } else {
+
+            $(".side").animate({
+                width: "12%"
+            }, 1000, function () {
+                $(".title").text(" ");
+                $("#button").text("Open");
+
+            });
+        }
+    });
+    // Update button  function
+    $("#btn").click(function () {
+
+        var textTitle = $("#inputTitle").val();
+        var textColor = $("#inputColor").val();
+
+        $("#text").text(textTitle);
+        $("#text").css("color",textColor);
+
+        if ($("#info").hasClass("bg")){
+
+
+            $(".container").removeClass(bootstrapColors[1]);
+            $(".container").removeClass(bootstrapColors[2]);
+            $(".container").removeClass(bootstrapColors[3]);
+            $(".container").removeClass(bootstrapColors[4]);
+
+            $(".container").toggleClass(bootstrapColors[0]);
+
+        } else if ($("#primary").hasClass("bg")){
+
+            $(".container").removeClass(bootstrapColors[0]);
+            $(".container").removeClass(bootstrapColors[2]);
+            $(".container").removeClass(bootstrapColors[3]);
+            $(".container").removeClass(bootstrapColors[4]);
+
+            $(".container").toggleClass(bootstrapColors[1]);
+
+        } else if ($("#success").hasClass("bg")){
+
+            $(".container").removeClass(bootstrapColors[0]);
+            $(".container").removeClass(bootstrapColors[1]);
+            $(".container").removeClass(bootstrapColors[3]);
+            $(".container").removeClass(bootstrapColors[4]);
+
+            $(".container").toggleClass(bootstrapColors[2]);
+
+        } else if ($("#danger").hasClass("bg")){
+
+
+            $(".container").removeClass(bootstrapColors[0]);
+            $(".container").removeClass(bootstrapColors[1]);
+            $(".container").removeClass(bootstrapColors[2]);
+            $(".container").removeClass(bootstrapColors[4]);
+
+            $(".container").toggleClass(bootstrapColors[3]);
+
+        }else if ($("#warning").hasClass("bg")){
+
+
+            $(".container").removeClass(bootstrapColors[0]);
+            $(".container").removeClass(bootstrapColors[1]);
+            $(".container").removeClass(bootstrapColors[2]);
+            $(".container").removeClass(bootstrapColors[3]);
+
+            $(".container").toggleClass(bootstrapColors[4]);
+
+        } else {
+            console.log("Error!");
+        }
+    });
+</script>
+</body>
+</html>
